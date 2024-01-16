@@ -11,6 +11,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "state";
+import { BASE_URL } from "utils";
 
 const PostWidget = ({
   postId,
@@ -38,7 +39,7 @@ const PostWidget = ({
     setIsLiked(!isLiked);
     setLikeCount(isLiked ? likeCount + 1 : likeCount - 1);
     const response = await fetch(
-      `https://server-mern-5sfq.onrender.com/posts/${postId}/like`,
+      `${BASE_URL}/posts/${postId}/like`,
       {
         method: "PATCH",
         headers: {
@@ -69,7 +70,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://server-mern-5sfq.onrender.com/assets/${picturePath}`}
+          src={`${BASE_URL}/assets/${picturePath}`}
         />
       )}
 

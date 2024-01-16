@@ -8,6 +8,7 @@ import FriendListWidget from "screens/widgets/FriendListWidget";
 import MyPostWidget from "screens/widgets/MyPostWidget";
 import PostsWidget from "screens/widgets/PostsWidget";
 import UserWidget from "screens/widgets/UserWidget";
+import { BASE_URL } from "utils";
 // import CircularProgress from '@mui/material/CircularProgress';
 const ProfilePage = () => {
   const loggedInUser = useSelector((state) => state.user);
@@ -20,7 +21,7 @@ const ProfilePage = () => {
 
   const getUser = async () => {
     const response = await fetch(
-      `https://server-mern-5sfq.onrender.com/users/${userId}`,
+      `${BASE_URL}/users/${userId}`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

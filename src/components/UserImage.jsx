@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { BASE_URL } from "utils";
 
 const UserImage = ({ image, size = "60px" }) => {
   return (
@@ -8,7 +9,7 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`https://server-mern-5sfq.onrender.com/assets/${image}`}
+        src={`${BASE_URL}/assets/${image}`}
       />
     </Box>
   );

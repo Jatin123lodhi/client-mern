@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
+import { BASE_URL } from "utils";
 
 const Friend = ({ friendId, name, subtitle, userPicturePath, userId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { _id } = useSelector((state) => state.user);
+  const { _id: loggedInUserId, firstName,lastName} = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
-
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
@@ -23,7 +23,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, userId }) => {
 
   const patchFriend = async () => {
     const response = await fetch(
-      `https://server-mern-5sfq.onrender.com/users/${_id}/${friendId}`,
+      `${BASE_URL}/users/${loggedInUserId}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -63,7 +63,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, userId }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      {_id === userId ? (
+      {(loggedInUserId === userId || userId === null) && (name!==`${firstName} ${lastName}`) ? (
         <IconButton
           onClick={() => patchFriend()}
           sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
