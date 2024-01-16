@@ -19,18 +19,21 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      `https://server-mern-5sfq.onrender.com/users/${userId}`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     const data = await response.json();
     setUser(data);
   };
 
   useEffect(() => {
-    console.log(userId,currentLoggedInUserId)
+    console.log(userId, currentLoggedInUserId);
     if (userId !== currentLoggedInUserId) getUser();
-    else setUser(loggedInUser)
+    else setUser(loggedInUser);
   }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // currently no need of loader
@@ -47,7 +50,6 @@ const ProfilePage = () => {
   //       <Box>Loading...</Box> <CircularProgress size={"20px"}/>
   //     </Box>
   //   );
-   
 
   return (
     <Box>
