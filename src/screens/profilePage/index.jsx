@@ -1,12 +1,12 @@
-import { useTheme } from "@emotion/react";
+// import { useTheme } from "@emotion/react";
 import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Navbar from "screens/navbar";
 import FriendListWidget from "screens/widgets/FriendListWidget";
-import MyPostWidget from "screens/widgets/MyPostWidget";
-import PostsWidget from "screens/widgets/PostsWidget";
+import MyPostWidget from "screens/widgets/Post/MyPostWidget";
+import PostsWidget from "screens/widgets/Post/PostsWidget";
 import UserWidget from "screens/widgets/UserWidget";
 import { BASE_URL } from "utils";
 // import CircularProgress from '@mui/material/CircularProgress';
@@ -20,19 +20,15 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
-    const response = await fetch(
-      `${BASE_URL}/users/${userId}`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await fetch(`${BASE_URL}/users/${userId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await response.json();
     setUser(data);
   };
 
   useEffect(() => {
-    console.log(userId, currentLoggedInUserId);
     if (userId !== currentLoggedInUserId) getUser();
     else setUser(loggedInUser);
   }, [userId]); // eslint-disable-line react-hooks/exhaustive-deps
